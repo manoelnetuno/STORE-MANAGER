@@ -1,0 +1,29 @@
+name: 'Docker Cypress evaluator'
+description: 'Docker Cypress evaluator action for Tryber projects'
+inputs:
+  tests_folder:
+    description: '(path) Folder where `npm test` will run (relative to project root)'
+    default: '.'
+  compose_folder:
+    description: '(path) `docker-compose.yml` folder (relative to project root)'
+    default: '.'
+  run_compose:
+    description: '(bool) Runs `docker-compose up` before testing'
+    default: ''
+  wait_for_url:
+    description: '(url) App URL to wait before testing (runs `npm start` if `run_compose` not set)'
+    default: ''
+  pr_author_username:
+    description: '(string) Pull Request author username'
+    required: true
+outputs:
+  result:
+    description: 'Cypress unit tests JSON results in base64 format.'
+    value: ${{ steps.run-entrypoint.outputs.result }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Run EntryPoint
+      id: run-entrypoint
+      run: export INPUT_TESTS_FOLDER=${{ inputs.tests_folder }} && export INPUT_COMPOSE_FOLDER=${{ inputs.compose_folder }} && export INPUT_RUN_COMPOSE=${{ inputs.run_compose }} && export INPUT_WAIT_FOR_URL=${{ inputs.wait_for_url }} && export INPUT_PR_AUTHOR_USERNAME=${{ inputs.pr_author_username }} && ${{ github.action_path }}/entrypoint.sh
+      shell: bash

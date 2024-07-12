@@ -1,0 +1,22 @@
+{
+  "commands": {
+    "RUN_COVERAGE_TESTS": "npm run test:coverage --prefix ../backend",
+    "RUN_MUTATION_TESTS": "npm run test:mutation --prefix ../backend"
+  },
+  "messages": {
+    "MOCHA_FAIL_TESTS_ERROR": "Abortando suíte de testes. Alguns de seus testes falharam, corrija antes de rodar a suíte novamente.",
+    "MOCHA_NO_TESTS_ERROR": "Abortando suite de testes. Nenhum teste foi encontrado.",
+    "INVALID_DATE": "Invalid Date"
+  },
+  "errors": {
+    "MOCHA_NO_TEST": "No test files found",
+    "STRYKER_NO_TEST": "'No tests were executed"
+  },
+  "queries": {
+    "SHOW_TABLES": "SHOW tables",
+    "GET_PRODUCT_BY_ID": "SELECT * FROM StoreManager.products WHERE id = ?",
+    "GET_SALE_BY_ID": "SELECT * FROM StoreManager.sales WHERE id = ?",
+    "GET_SALES_PRODUCTS": "SELECT * FROM StoreManager.sales_products",
+    "GET_SALES_PRODUCTS_BY_ID": "SELECT * FROM StoreManager.sales_products WHERE sale_id = ?"
+  }
+}

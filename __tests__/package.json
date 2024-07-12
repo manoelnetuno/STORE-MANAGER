@@ -1,0 +1,30 @@
+{
+  "name": "sd-0x-store-manager-tests",
+  "version": "1.0.0",
+  "description": "Projeto Store Manager - Testes",
+  "author": "Trybe",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "scripts": {
+    "cy": "cypress run",
+    "cy:open": "cypress open --e2e --browser electron",
+    "lint": "eslint --no-error-on-unmatched-pattern .",
+    "test": "CY_CLI=true cypress run -r spec -s \"**/*$REQ*\""
+  },
+  "devDependencies": {
+    "@stryker-mutator/core": "6.4.2",
+    "@stryker-mutator/mocha-runner": "6.4.2",
+    "@testing-library/cypress": "9.0.0",
+    "cypress": "12.6.0",
+    "cypress-multi-reporters": "1.6.3",
+    "eslint-config-trybe-backend": "2.1.0",
+    "eslint-plugin-cypress": "^2.13.2",
+    "mochawesome": "7.1.3",
+    "mochawesome-merge": "4.3.0",
+    "mochawesome-report-generator": "6.2.0",
+    "mysql2": "2.3.0"
+  }
+}

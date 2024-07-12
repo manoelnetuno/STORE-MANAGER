@@ -1,0 +1,25 @@
+{
+  "name": "sd-0x-store-manager",
+  "version": "2.0.0",
+  "description": "Projeto Store Manager",
+  "author": "Trybe",
+  "license": "ISC",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=16.14.0",
+    "npm": ">=8.3.1"
+  },
+  "scripts": {
+    "dev:local": "npm run dev --prefix backend",
+    "test": "npm test --prefix __tests__",
+    "cy:open": "npm run cy:open --prefix __tests__",
+    "test:mocha": "npm run test:mocha --prefix backend",
+    "test:coverage": "npm run test:coverage --prefix backend",
+    "test:mutation": "npm run test:mutation --prefix backend",
+    "lint": "npm run lint --prefix __tests__ && npm run lint --prefix backend",
+    "migration": "node -e \"require('./__tests__/cypress/utils/db').runMigration()\"",
+    "seed": "node -e \"require('./__tests__/cypress/utils/db').runSeed()\"",
+    "db:reset": "npm run migration && npm run seed",
+    "postinstall": "npm install --prefix __tests__ && npm install --prefix backend"
+  }
+}

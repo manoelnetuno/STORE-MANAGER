@@ -1,0 +1,26 @@
+{
+  "request": {
+    "quantity": 20
+  },
+  "wrongRequestMissingQuantity": {},
+  "wrongRequestInvalidQuantity": {
+    "quantity": 0
+  },
+  "expectedResponse": {
+    "saleId": 1,
+    "productId": 2,
+    "quantity": 20
+  },
+  "expectedInDB": [
+    {
+      "sale_id": 1,
+      "product_id": 1,
+      "quantity": 5
+    },
+    {
+      "sale_id": 1,
+      "product_id": 2,
+      "quantity": 20
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "request": {
+    "name": "Produto1"
+  },
+  "expectedResponse": {
+    "id": 4,
+    "name": "Produto1"
+  }
+}

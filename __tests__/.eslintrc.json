@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "extends": [
+    "trybe-backend",
+    "plugin:cypress/recommended"
+  ],
+  "rules": {
+    "indent": "error",
+    "sonarjs/no-duplicate-string": [
+      "error",
+      5
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "_",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "camelcase": "off",
+    "mocha/no-mocha-arrows": "off",
+    "max-lines-per-function": "off",
+    "max-len": "off",
+    "no-await-in-loop": "off"
+  }
+}

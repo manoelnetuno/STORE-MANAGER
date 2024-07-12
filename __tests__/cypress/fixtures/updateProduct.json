@@ -1,0 +1,9 @@
+{
+  "request": {
+    "name": "Machado do Thor Stormbreaker"
+  },
+  "expectedResponse": {
+    "id": 1,
+    "name": "Machado do Thor Stormbreaker"
+  }
+}

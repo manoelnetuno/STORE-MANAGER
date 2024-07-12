@@ -1,0 +1,11 @@
+require('./01.getProducts.cy');
+require('./02.getSales.cy');
+require('./03.createProduct.cy');
+require('./04.validateProduct.cy');
+require('./05.createSale.cy');
+require('./06.validateSale.cy');
+require('./07.updateProduct.cy');
+require('./08.deleteProduct.cy');
+require('./09.deleteSale.cy');
+require('./10.updateSaleProductQuantity.cy');
+require('./11.searchProduct.cy');

@@ -1,0 +1,92 @@
+name: Testa código para aceitar Merge na branch principal
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+  workflow_dispatch:
+
+jobs:
+  get-rubric-branches-list: ## Job para buscar branches de rubrica
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set branches for next job
+        id: set-branches
+        run: echo "result=[$(git branch -r -l 'origin/rubric*' | sed 's/origin\///' | awk '{$1=$1; print "\"" $0 "\""}' | paste -sd, -)]" >> $GITHUB_OUTPUT
+    outputs:
+      result: ${{ steps.set-branches.outputs.result }}
+
+  Evaluator:
+    runs-on: self-hosted
+    name: Evaluator
+    needs: [get-rubric-branches-list] ## depende do job anterior
+    strategy: ## roda um job para cada branch de rubrica
+      fail-fast: false
+      matrix:
+        branch: ${{fromJson(needs.get-rubric-branches-list.outputs.result)}}
+
+    steps:
+      - name: Fetch project repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ matrix.branch }} ## Checkout na branch da rubrica
+
+      - name: Fetch Blocked Files Checkout action
+        uses: actions/checkout@v3
+        with:
+          repository: betrybe/blocked-files-checkout-action
+          ref: v2
+          token: ${{ secrets.GIT_HUB_PAT }}
+          path: .github/actions/blocked-files-checkout
+
+      - name: Fetch Store evaluation
+        uses: actions/checkout@v3
+        with:
+          repository: betrybe/store-evaluation-action
+          ref: v8.0
+          token: ${{ secrets.GIT_HUB_PAT }}
+          path: .github/actions/store-evaluation
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Restore protected files
+        uses: ./.github/actions/blocked-files-checkout
+        with:
+          restore_branch: ${{ github.head_ref }} ## recupera da branch do PR
+
+      - name: Run Docker Cypress evaluation
+        id: evaluator
+        uses: ./.github/actions/docker-cypress-evaluator
+        with:
+          tests_folder: __tests__
+          # compose_folder: .
+          run_compose: true
+          # wait_for_url: 'http://localhost:3001'
+          pr_author_username: ${{ github.event.pull_request.user.login }}
+
+      - name: Run Store evaluation
+        uses: ./.github/actions/store-evaluation
+        with:
+          evaluation-data: ${{ steps.evaluator.outputs.result }}
+          environment: production
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      ## Step que verifica o resultado esperado
+      - name: Teste Project Rubrics
+        uses: betrybe/test-project-evaluator/.github/actions/test-project-evaluator@main
+        with:
+          evaluator_result: ${{ steps.evaluator.outputs.result }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch_rubric: ${{ matrix.branch }}
+      
+    
+
+  

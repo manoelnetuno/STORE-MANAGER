@@ -1,0 +1,50 @@
+{
+  "wrongSaleNotProductIdBody": [
+    {
+      "quantity": 1
+    }
+  ],
+  "wrongSaleNotQuantityBody": [
+    {
+      "productId": 1
+    }
+  ],
+  "nonexistentProductIdBody": [
+    {
+      "productId": 9999,
+      "quantity": 1
+    }
+  ],
+  "nonexistentProductIdBody2": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 9999,
+      "quantity": 1
+    }
+  ],
+  "wrongZeroQuantityBody": [
+    {
+      "productId": 1,
+      "quantity": 0
+    }
+  ],
+  "wrongZeroNegativeBody": [
+    {
+      "productId": 1,
+      "quantity": -1
+    }
+  ],
+  "otherProductIdSaleBody": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 3,
+      "quantity": 5
+    }
+  ]
+}
