@@ -50,7 +50,7 @@ Neste projeto, verificamos se você é capaz de:
 
 - Este projeto é individual
 
-- Serão `X` dias de projeto
+- Serão `5` dias de projeto
 
 - Data de entrega para avaliação regular do projeto: `DD/MM/YYYY 14:00h`
 
@@ -746,7 +746,7 @@ expect(next).to.have.been.calledWith(); // verifica se o `next` foi chamado pelo
 Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência preenchendo o formulário.
 **Leva menos de 3 minutos!**
 
-[Formulário de avaliação do projeto](https://be-trybe.typeform.com/to/ZTeR4IbH)
+[Formulário de avaliação do projeto](https://be-trybe.typeform.com/to/ZTeR4IbH#cohort_hidden=CH39&template=betrybe/sd-0x-store-manager)
 
 </details>
   
