@@ -10,7 +10,7 @@ const getAllSales = async () => {
     FROM 
         sales AS s
     INNER JOIN 
-        sales_product AS sp 
+        sales_products AS sp 
     ON 
         s.id = sp.sale_id
     ORDER BY 

@@ -8,8 +8,6 @@ app.get('/', (_request, response) => {
   response.json({ status: 'Store Manager UP!' });
 });
 app.use('/products', productRoute);
-app.use('/products/:id', productIdRoute);
 app.use('/sales', salesRoute);
-app.use('/sales/:id', salesIdRoute);
 
 module.exports = app;
