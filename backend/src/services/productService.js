@@ -5,7 +5,7 @@ const allproductz = async () => {
   return producst;
 };
 
-const productId = async (id ) => {
+const productId = async (id) => {
   const product = await productmodel.getProductzById(id);
   return product;
 };

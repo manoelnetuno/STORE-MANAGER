@@ -9,14 +9,14 @@ const getSalesId = async (id) => {
   const sale = await salesModel.getSalesId(id);
   if (!sale || sale.length === 0) {
     return {
-      status: 404,
+      status: 'NOT_FOUND',
       data: {
         message: 'Sale not found',
       },
     };
   }
   return {
-    status: 200,
+    status: 'SUCCESSFUL',
     data: sale,
   };
 };
