@@ -24,7 +24,7 @@ const postCreateProduct = async (req, res) => {
     const newProduct = await productService.createProduct(name);
     res.status(201).json(newProduct);
   } catch (error) {
-    const errorMessage = error.message || 'Failed to create product';
+    const errorMessage = error.message && 'Failed to create product';
     res.status(422).json({ message: errorMessage });
   }
 };

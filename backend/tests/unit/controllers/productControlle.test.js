@@ -2,9 +2,9 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const chai = require('chai');
-const { getAllProductz } = require('../../../src/controllers/productsController');
+const { getAllProductz, getProductzById } = require('../../../src/controllers/productsController');
 const productService = require('../../../src/services/productService');
-const { getProductzById } = require('../../../src/controllers/productsController');
+const productsController = require('../../../src/controllers/productsController');
 
 chai.use(sinonChai);
 
@@ -35,7 +35,29 @@ describe('Realizando testes - Product Controller', function () {
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(fakeProduct);
   });
-    
+  it('deve criar um novo produto', async function () {
+    const validname = 'joystick do flash';
+    const mockValue = {
+      id: 4,
+      name: validname,
+    };
+    const req = {
+      body: {
+        name: 'joystick do flash',
+      },
+    };
+    const res = {};
+    res.status = sinon.stub().returnsThis();
+    res.json = sinon.stub();
+
+    sinon.stub(productService, 'createProduct').resolves(mockValue);
+
+    await productsController.postCreateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+
+    expect(res.json).to.have.been.calledWith(mockValue);
+  });
   afterEach(function () {
     sinon.restore();
   });

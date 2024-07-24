@@ -11,9 +11,9 @@ const getProductzById = async (id) => {
 };
 
 const postCreateProduct = async (name) => {
-  const [{ insertid }] = await dB.execute('INSERT INTO products (name) VALUES (?)', [name]);
+  const [{ insertId }] = await dB.execute('INSERT INTO products (name) VALUES (?)', [name]);
   return {
-    id: insertid,
+    id: insertId,
     name,
   };
 };
