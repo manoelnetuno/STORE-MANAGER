@@ -9,7 +9,7 @@ const getAllSales = async (req, res) => {
 const getSalesId = async (req, res) => {
   const { id } = req.params;
   const { status, data } = await saleService.getSalesId(id);
-  return res.status(mapStatusHTTP[status]).json(data);
+  return res.status(mapStatusHTTP(status)).json(data);
 };
 
 module.exports = {

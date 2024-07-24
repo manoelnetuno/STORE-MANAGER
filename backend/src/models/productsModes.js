@@ -10,7 +10,16 @@ const getProductzById = async (id) => {
   return product[0];
 };
 
+const postCreateProduct = async (name) => {
+  const [{ insertid }] = await dB.execute('INSERT INTO products (name) VALUES (?)', [name]);
+  return {
+    id: insertid,
+    name,
+  };
+};
+
 module.exports = {
   getAllProductz,
   getProductzById,
+  postCreateProduct,
 };
