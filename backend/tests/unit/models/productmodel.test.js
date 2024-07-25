@@ -5,8 +5,8 @@ const connection = require('../../../src/models/connections');
 
 const { expect } = chai;
 
-describe('deve criar um produto', function () {
-  it('deve criar um produto', async function () {
+describe('Realizando testes - productModel', function () {
+  it('POST:deve criar um produto', async function () {
     const validname = 'joystick';
     sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
 
