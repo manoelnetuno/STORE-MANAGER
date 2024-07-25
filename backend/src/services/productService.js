@@ -16,8 +16,15 @@ const createProduct = async (name) => {
   return newProduct;
 };
 
+const updateProduct = async (id, name) =>
+  productmodel.putUpdateProduct(id, name);
+
+const deleteProduct = async (id) => productmodel.deleteProduct(id);
+
 module.exports = {
   allproductz,
   productId,
   createProduct,
+  updateProduct,
+  deleteProduct,
 };

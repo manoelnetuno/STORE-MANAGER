@@ -18,8 +18,21 @@ const postCreateProduct = async (name) => {
   };
 };
 
+const putUpdateProduct = async (id, name) => {
+  const query = 'UPDATE products SET name = ? WHERE id= ?';
+  const values = [name, id];
+  await dB.execute(query, values);
+  return { id, name };
+};
+
+const deleteProduct = async (id) => {
+  const query = 'DELETE FROM products WHERE id= ?';
+  await dB.execute(query, [id]);
+};
 module.exports = {
   getAllProductz,
   getProductzById,
   postCreateProduct,
+  putUpdateProduct,
+  deleteProduct,
 };

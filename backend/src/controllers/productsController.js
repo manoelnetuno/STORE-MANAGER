@@ -28,8 +28,36 @@ const postCreateProduct = async (req, res) => {
     res.status(422).json({ message: errorMessage });
   }
 };
+const putUpdateProduct = async (req, res) => {
+  const productId = parseInt(req.params.id, 10);
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(400).json({ message: '"name" is required' });
+  }
+  if (name.length < 5) {
+    return res.status(422).json({ message: '"name" length must be at least 5 characters long' });
+  }
+  const producst = await productService.productId(productId);
+  if (!producst) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  const updatedProduct = await productService.updateProduct(productId, name);
+  return res.status(200).json(updatedProduct);
+};
+const deleteProduct = async (req, res) => {
+  const productId = parseInt(req.params.id, 10);
+  const existingProduct = await productService.productId(productId);
+  if (!existingProduct) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  await productService.deleteProduct(productId);
+  return res.status(204).send();
+};
 module.exports = {
   getAllProductz,
   getProductzById,
   postCreateProduct,
+  putUpdateProduct,
+  deleteProduct,
 };
