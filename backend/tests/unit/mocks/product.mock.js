@@ -1,4 +1,4 @@
-const products = {
+const productsMOCK = {
   ordered: [
     {
       id: 1,
@@ -14,4 +14,12 @@ const products = {
     },
   ],
 };
-module.exports = products;
+const updatedProductMock = {
+  id: 3,
+  name: 'old name',
+};
+
+module.exports = {
+  productsMOCK,
+  updatedProductMock,
+};
