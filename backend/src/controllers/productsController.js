@@ -18,7 +18,7 @@ const postCreateProduct = async (req, res) => {
     return res.status(400).json({ message: '"Name" is required' });
   }
   if (name.length < 5) {
-    return res.status(422).json({ message: '"Name" must be at least 5 characters long' });
+    return res.status(422).json({ message: '"Name" length must be at least 5 characters long' });
   }
   try {
     const newProduct = await productService.createProduct(name);

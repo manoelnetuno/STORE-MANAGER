@@ -58,6 +58,42 @@ describe('Realizando testes - Product Controller', function () {
 
     expect(res.json).to.have.been.calledWith(mockValue);
   });
+  it('deve retornar erro quando não achar o produto', async function () {
+    const productId = 666;
+    sinon.stub(productService, 'productId').resolves(null);
+    const req = { params: { id: productId } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await getProductzById(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
+  it('deve retornar erro quando o tamanho do nome do produto for invalido', async function () {
+    const req = { body: { name: 'edgb' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsController.postCreateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith({ message: '"Name" length must be at least 5 characters long' });
+  });
+  it('deve retornar erro quando o nome não é enviado', async function () {
+    const req = { body: {
+      name: '',
+    } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsController.postCreateProduct(req, res);
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith({ message: '"Name" is required' });
+  });
   afterEach(function () {
     sinon.restore();
   });
