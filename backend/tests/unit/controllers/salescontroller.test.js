@@ -29,13 +29,13 @@ describe('realizandos testes da camada controller do sales', function () {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    const salesData = { status: 200, data: salesIdMock };
+    const salesData = { status: 'SUCCESSFUL', data: salesIdMock };
         
     sinon.stub(salesService, 'getSalesId').resolves(salesData);
 
     await salesController.getSalesId(req, res);
 
-    expect(res.status).to.have.been.calledWith(salesData.status);
+    expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(salesData.data);
   });
   it('GET:deve retornar error se não encontrar a sale pelo id', async function () {
@@ -44,12 +44,12 @@ describe('realizandos testes da camada controller do sales', function () {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    const salesData = { status: 404, data: { message: 'Sale not found' } };
+    const salesData = { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
         
     sinon.stub(salesService, 'getSalesId').resolves(salesData);
 
     await salesController.getSalesId(req, res);
-    expect(res.status).to.have.been.calledWith(salesData.status);
+    expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(salesData.data);
   });
 

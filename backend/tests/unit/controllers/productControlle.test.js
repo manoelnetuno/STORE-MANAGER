@@ -6,6 +6,7 @@ const { getAllProductz, getProductzById } = require('../../../src/controllers/pr
 const productService = require('../../../src/services/productService');
 const productsController = require('../../../src/controllers/productsController');
 const { updatedProductMock } = require('../mocks/product.mock');
+const productMiddleware = require('../../../src/middlewares/validations');
 
 chai.use(sinonChai);
 
@@ -49,18 +50,18 @@ describe('Realizando testes - Product Controller', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
   });
-  it('GET:deve retornar erro quando o tamanho do nome do produto for invalido', async function () {
+  it('POST:deve retornar erro quando o tamanho do nome do produto for invalido', async function () {
     const req = { body: { name: 'edgb' } };
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    await productsController.postCreateProduct(req, res);
+    await productMiddleware.validateProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(422);
     expect(res.json).to.have.been.calledWith({ message: '"Name" length must be at least 5 characters long' });
   });
-  it('GET:deve retornar erro quando o nome não é enviado', async function () {
+  it('POST:deve retornar erro quando o nome não é enviado', async function () {
     const req = { body: {
       name: '',
     } };
@@ -68,7 +69,7 @@ describe('Realizando testes - Product Controller', function () {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    await productsController.postCreateProduct(req, res);
+    await productMiddleware.validateProduct(req, res);
     expect(res.status).to.have.been.calledWith(400);
     expect(res.json).to.have.been.calledWith({ message: '"Name" is required' });
   });
@@ -129,7 +130,7 @@ describe('Realizando testes - Product Controller', function () {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    await productsController.putUpdateProduct(req, res);
+    await productMiddleware.validateProduct(req, res);
     expect(res.status).to.have.been.calledWith(400);
     expect(res.json).to.have.been.calledWith({ message: '"Name" is required' });
   });
@@ -139,7 +140,7 @@ describe('Realizando testes - Product Controller', function () {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
-    await productsController.putUpdateProduct(req, res);
+    await productMiddleware.validateProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(422);
     expect(res.json).to.have.been.calledWith({ message: '"Name" length must be at least 5 characters long' });
