@@ -7,7 +7,8 @@ route.get('/:id', salescontroller.getSalesId);
 route.post(
   '/',
   middlewares.validateSales, 
-  middlewares.validateQuantity, 
+  middlewares.validateQuantity,
+  middlewares.validateProduct, 
   salescontroller.postCreateSale,
 );
 

@@ -1,3 +1,5 @@
+const prodcutmodel = require('../models/productsModes');
+
 const validateSales = (req, res, next) => {
   const saleItems = req.body;
   if (!saleItems || saleItems.length === 0) {
@@ -18,7 +20,23 @@ const validateQuantity = (req, res, next) => {
   }
   next();
 };
+
+const validateProduct = async (req, res, next) => {
+  const saleItems = req.body;
+  const insertProducts = await saleItems.map(({ productId }) => 
+    prodcutmodel.getProductzById(
+      productId,
+    ));
+  const promise = await Promise.all(insertProducts);
+  const errorexist = promise.filter((product) => product === undefined);
+
+  if (errorexist.length) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  next();
+};
 module.exports = {
   validateSales,
   validateQuantity,
+  validateProduct,
 };
