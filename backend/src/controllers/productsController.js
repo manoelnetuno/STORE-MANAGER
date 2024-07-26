@@ -19,7 +19,7 @@ const postCreateProduct = async (req, res) => {
     res.status(201).json(newProduct);
   } catch (error) { 
     console.error(error);
-    const errorMessage = error.message && 'Failed to create product';
+    const errorMessage = error.message;
     res.status(422).json({ message: errorMessage });
   }
 };

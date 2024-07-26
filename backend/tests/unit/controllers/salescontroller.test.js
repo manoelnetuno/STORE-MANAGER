@@ -52,7 +52,32 @@ describe('realizandos testes da camada controller do sales', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(salesData.data);
   });
+  it('Deve cadastrar uma venda com sucesso', async function () {
+    const req = {
+      body: [
+        { productId: 1, quantity: 1 },
+        { productId: 2, quantity: 5 },
+      ],
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    const newSale = {
+      id: 3,
+      itemsSold: [
+        { productId: 1, quantity: 1 },
+        { productId: 2, quantity: 5 },
+      ],
+    };
 
+    sinon.stub(salesService, 'createSale').resolves(newSale);
+
+    await salesController.postCreateSale(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newSale);
+  });
   afterEach(function () {
     sinon.restore();
   });
