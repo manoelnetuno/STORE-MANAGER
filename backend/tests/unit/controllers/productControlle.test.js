@@ -59,7 +59,7 @@ describe('Realizando testes - Product Controller', function () {
     await productMiddleware.validateProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(422);
-    expect(res.json).to.have.been.calledWith({ message: '"Name" length must be at least 5 characters long' });
+    expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
   });
   it('POST:deve retornar erro quando o nome não é enviado', async function () {
     const req = { body: {
@@ -71,7 +71,7 @@ describe('Realizando testes - Product Controller', function () {
     };
     await productMiddleware.validateProduct(req, res);
     expect(res.status).to.have.been.calledWith(400);
-    expect(res.json).to.have.been.calledWith({ message: '"Name" is required' });
+    expect(res.json).to.have.been.calledWith({ message: '"name" is required' });
   });
   it('POST:deve criar um novo produto', async function () {
     const validname = 'joystick do flash';
@@ -132,7 +132,7 @@ describe('Realizando testes - Product Controller', function () {
     };
     await productMiddleware.validateProduct(req, res);
     expect(res.status).to.have.been.calledWith(400);
-    expect(res.json).to.have.been.calledWith({ message: '"Name" is required' });
+    expect(res.json).to.have.been.calledWith({ message: '"name" is required' });
   });
   it('PUT:deve retornar erro quando o name atualizado não possuir tamanho permitido', async function () {
     const req = { params: { id: 3 }, body: { name: 'edgb' } };
@@ -143,7 +143,7 @@ describe('Realizando testes - Product Controller', function () {
     await productMiddleware.validateProduct(req, res);
 
     expect(res.status).to.have.been.calledWith(422);
-    expect(res.json).to.have.been.calledWith({ message: '"Name" length must be at least 5 characters long' });
+    expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
   });
   it('DELETE: deve retornar erro caso o produto não exista', async function () {
     const productId = 666;

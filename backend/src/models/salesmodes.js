@@ -38,8 +38,20 @@ const getSalesId = async (id) => {
   );
   return sales;
 };
+const postCreateSale = async () => {
+  const [{ insertId }] = await dB.execute('INSERT INTO sales (date) VALUES (NOW())');
+  return insertId;
+};
+const postCreateSaleProduct = async (saleid, productid, quantity) => {
+  await dB.execute(
+    'INSERT INTO sales_products (sale_id,product_id,quantity) VALUES(?,?,?)',
+    [saleid, productid, quantity],
+  ); 
+};
 
 module.exports = {
   getAllSales,
   getSalesId,
+  postCreateSale,
+  postCreateSaleProduct,
 };

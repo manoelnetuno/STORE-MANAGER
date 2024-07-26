@@ -1,4 +1,5 @@
 const salesModel = require('../models/salesmodes');
+const productModel = require('../models/productsModes');
 
 const getAllSales = async () => {
   const sales = await salesModel.getAllSales();
@@ -20,8 +21,24 @@ const getSalesId = async (id) => {
     data: sale,
   };
 };
+const createSale = async (saleItems) => {
+  const insertId = await salesModel.postCreateSale(saleItems);
+  const insertProducts = saleItems.map(({ productId, quantity }) => 
+    salesModel.postCreateSaleProduct(
+      insertId,
+      productId,
+      quantity,
+    ));
+  await Promise.all(insertProducts);
 
+  const sale = {
+    id: insertId,
+    itemsSold: saleItems,
+  };
+  return sale;
+};
 module.exports = {
   getAllSales,
   getSalesId,
+  createSale,
 };
