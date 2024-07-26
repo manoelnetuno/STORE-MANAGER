@@ -32,6 +32,21 @@ describe('realizando testes da camada services dos sales', function () {
     expect(result.status).to.equal('NOT_FOUND');
     expect(result.data.message).to.equal('Sale not found');
   });
+  it('POST:deve criar uma sale e retornar um id', async function () {
+    const itemsSold = [
+      { productId: 1, quantity: 10 },
+      { productId: 2, quantity: 5 },
+    ];
+    const fakeSaleId = 1;
+    sinon.stub(salesModel, 'postCreateSale').resolves(fakeSaleId);
+
+    const result = await salesService.createSale(itemsSold);
+
+    expect(result).to.deep.equal({
+      id: fakeSaleId,
+      itemsSold,
+    });
+  });
   afterEach(function () {
     sinon.restore();
   });
