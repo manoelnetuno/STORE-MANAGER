@@ -1,5 +1,4 @@
 const salesModel = require('../models/salesmodes');
-const productModel = require('../models/productsModes');
 
 const getAllSales = async () => {
   const sales = await salesModel.getAllSales();
